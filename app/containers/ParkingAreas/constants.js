@@ -1,0 +1,41 @@
+/*
+ *
+ * ParkingAreas constants
+ *
+ */
+
+export const CREATE_PARKING_AREA = 'app/ParkingAreas/CREATE_PARKING_AREA';
+export const CREATE_PARKING_AREA_SUCCESS = 'app/ParkingAreas/CREATE_PARKING_AREA_SUCCESS';
+export const CREATE_PARKING_AREA_FAILURE = 'app/ParkingAreas/CREATE_PARKING_AREA_FAILURE';
+
+export const GET_PARKING_AREAS = 'app/ParkingAreas/GET_PARKING_AREAS';
+export const GET_PARKING_AREAS_SUCCESS = 'app/ParkingAreas/GET_PARKING_AREAS_SUCCESS';
+export const GET_PARKING_AREAS_FAILURE = 'app/ParkingAreas/GET_PARKING_AREAS_FAILURE';
+
+export const GET_PARKING_AREA_BY_ID = 'app/ParkingAreas/GET_PARKING_AREA_BY_ID';
+export const GET_PARKING_AREA_BY_ID_SUCCESS = 'app/ParkingAreas/GET_PARKING_AREA_BY_ID_SUCCESS';
+export const GET_PARKING_AREA_BY_ID_FAILURE = 'app/ParkingAreas/GET_PARKING_AREA_BY_ID_FAILURE';
+
+export const UPDATE_PARKING_AREA = 'app/ParkingAreas/UPDATE_PARKING_AREA';
+export const UPDATE_PARKING_AREA_SUCCESS = 'app/ParkingAreas/UPDATE_PARKING_AREA_SUCCESS';
+export const UPDATE_PARKING_AREA_FAILURE = 'app/ParkingAreas/UPDATE_PARKING_AREA_FAILURE';
+
+export const DELETE_PARKING_AREA = 'app/ParkingAreas/DELETE_PARKING_AREA';
+export const DELETE_PARKING_AREA_SUCCESS = 'app/ParkingAreas/DELETE_PARKING_AREA_SUCCESS';
+export const DELETE_PARKING_AREA_FAILURE = 'app/ParkingAreas/DELETE_PARKING_AREA_FAILURE';
+
+export const GET_SLOTS_BY_PARKING_AREA_ID = 'app/ParkingAreas/GET_SLOTS_BY_PARKING_AREA_ID';
+export const GET_SLOTS_BY_PARKING_AREA_ID_SUCCESS = 'app/ParkingAreas/GET_SLOTS_BY_PARKING_AREA_ID_SUCCESS';
+export const GET_SLOTS_BY_PARKING_AREA_ID_FAILURE = 'app/ParkingAreas/GET_SLOTS_BY_PARKING_AREA_ID_FAILURE';
+
+export const BOOKING_SLOT = 'app/ParkingAreas/BOOKING_SLOT';
+export const BOOKING_SLOT_SUCCESS = 'app/ParkingAreas/BOOKING_SLOT_SUCCESS';
+export const BOOKING_SLOT_FAILURE = 'app/ParkingAreas/BOOKING_SLOT_FAILURE';
+
+export const RELEASE_SLOT = 'app/ParkingAreas/RELEASE_SLOT';
+export const RELEASE_SLOT_SUCCESS = 'app/ParkingAreas/RELEASE_SLOT_SUCCESS';
+export const RELEASE_SLOT_FAILURE = 'app/ParkingAreas/RELEASE_SLOT_FAILURE';
+
+export const GET_PARKING_AREA_STATS = 'app/ParkingAreas/GET_PARKING_AREA_STATS';
+export const GET_PARKING_AREA_STATS_SUCCESS = 'app/ParkingAreas/GET_PARKING_AREA_STATS_SUCCESS';
+export const GET_PARKING_AREA_STATS_FAILURE = 'app/ParkingAreas/GET_PARKING_AREA_STATS_FAILURE';

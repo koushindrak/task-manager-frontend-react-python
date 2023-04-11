@@ -1,0 +1,134 @@
+.sideNav {
+  width: 200px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top:0;
+  z-index: 100;
+  transition: 0.55s ease-in-out;
+  box-shadow: 5px   #888888;
+  background-color: white;
+  /* background-image: linear-gradient(-20deg,#232526,#414345)!important; */
+}
+.sideNav .sidenavContainer {
+  padding: 5px;
+  position: relative;
+  height: 100%;
+}
+
+.vpsLogo {
+  height: 200px
+}
+.sidenavContainer .sideNavLogo {
+  position: absolute;
+  transform: rotate(-90deg);
+  padding: 0px;
+  top: 10%;
+  left: 20px;
+  font-weight: 900;
+  color: white;
+}
+
+.sidenavContainer .activeTabName{
+  position: absolute;
+  transform: rotate(-90deg);
+  padding: 0px;
+  bottom: 10%;
+  left: -10px;
+  /* transform: translateX(-50%); */
+  font-weight: 900;
+  color: white;
+  white-space: nowrap;
+}
+
+.sidenavContainer .sideNavIcon {
+  -webkit-transform:rotate(-90deg);
+  position: absolute;
+  top: 50%;
+  left:25px;
+  bottom: 50%;
+  color:white
+}
+.sidenavContainer .sideNavCloseIcon {
+  position: absolute;
+  -webkit-transform:rotate(-90deg);
+  top: 50%;
+  left:25px;
+  bottom: 50%;
+  color:white;
+  display: none;
+}
+.sideNavIcon ,.sideNavCloseIcon i{
+  width: 2px;
+}
+.sideNavCloseIcon ,.sideNavIcon:hover {
+  cursor: pointer;
+  color: white;
+}
+.sidenavContainer .sideNavLogo p{
+  padding: 0px !important;
+  margin: 0px ;
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.menuNavigationSlideWrapper{
+  border-right: 2px solid #e1e1e1;
+  line-height: 1.6;
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  display: flex;
+  align-items: center;
+  transition: 0.55s ease-in-out;
+  box-sizing: content-box;
+  height: 100% !important;
+  display: block;
+}
+
+.menuList{
+  height: 100%;
+  left: 0;
+  border-top: 2px solid #e1e1e1;
+
+}
+
+.menuList ul{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+.menuList ul li  {
+  padding: 10px 5px 10px 5px;
+}
+.menuList ul li a{
+  text-decoration: none;
+  color: black;
+  margin:5px;
+}
+.menuList ul li.active a{
+  color: white;
+}
+.menuList ul li a:hover{
+  color: #ad5389;
+}
+.menuList ul li.active{
+  background-color: rgba(68, 33, 54, 0.5);
+  border-left: 5px solid #3c1053;
+  border-radius: 5px;
+  color: white;
+}
+.menuList ul li.active:hover{
+  background-color: rgba(68, 33, 54, 0.5);
+}
+.menuList ul li.active a:hover{
+  color: white;
+}
+.menuList ul li:hover:not(.active){
+  color: #ad5389;
+  /* text-shadow: 2px 2px black; */
+}
