@@ -56,6 +56,8 @@ export default class HomePage extends React.PureComponent {
     routes: [
       { "path": "/users", "component": ManageUsers },
       { "path": "/", "component": ManageTasks },
+      { "path": "/tasks", "component": ManageTasks },
+
       { "path": "/projects", "component": ManageProjects },
       // { "path": "/addOrEditParkingArea/:id?", "component": AddOrEditParkingArea },
     ],

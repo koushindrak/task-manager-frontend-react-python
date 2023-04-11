@@ -15,12 +15,12 @@ export const apis= {
   /*BASE APIS*/
    USER_APIS_BASE_URL: "api/v1/users/kk",
    ROLE_APIS_BASE_URL: "api/v1/role",
-   PROJECT_APIS_BASE_URL: "api/v1/projects",
-   TASK_APIS_BASE_URL: "api/v1/tasks",
+   PROJECT_APIS_BASE_URL: "projects/",
+   TASK_APIS_BASE_URL: "tasks",
    PARKING_AREA_APIS_BASE_URL: "api/v1/area",
 
   /*OTHER APIS*/
-   LOGIN: 'api/v1/auth/signin',
+   LOGIN: 'api/token',
    GET_SLOTS_BY_PARKING_AREA_ID: "api/v1/area/{id}/slots",
    GET_PARKING_AREA_STATS:"api/v1/area/{id}/slots/stats"
 }
@@ -62,7 +62,7 @@ function* apiTryBlockHandler(action,responseConst,apiUrlConstant,type,isBaseUrl,
     switch (apiName) {
       case "LOGIN": {
         const response = yield call(axios.post, window.URL+apis.LOGIN, action.payload);
-        yield put({type: responseConst, response: response.data.data})
+        yield put({type: responseConst, response: response.data})
         break;
       }
       case "GET_PARKING_AREA_STATS":
@@ -83,17 +83,18 @@ function setUrlAndMethod(type, url, action, method) {
     case apiTypes.GET_ALL:
       break;
     case  apiTypes.GET_BY_ID:
-      url = url + "/"+action.id
+      url = url +action.id+"/"
       break;
     case  apiTypes.UPDATE_BY_ID:
-      url = url +"/"+ action.payload.id;
+      url = url +"update/"+ action.payload.id+"/";
       method = axios.put;
       break;
     case  apiTypes.DELETE_BY_ID:
-      url = url +"/"+ action.id;
+      url = url +"/delete/"+ action.id+"/";
       method = axios.delete;
       break;
     case  apiTypes.CREATE:
+      url = url +"/create/"
       method = axios.post;
       break;
   }

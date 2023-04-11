@@ -22,7 +22,7 @@ export function* ErrorCheck(action, error, errorConst) {
     yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
   } else if (error.response.status === 401) {
     localStorage.clear();
-    yield put({type: errorConst, error: error.response.data.displayError, addOns: action});
+    yield put({type: errorConst, error: error.response.data.detail, addOns: action});
   }
 }
 

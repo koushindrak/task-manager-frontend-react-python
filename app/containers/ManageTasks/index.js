@@ -81,7 +81,7 @@ let payload = {
   id: '',
   name: '',
   description: "",
-  dueDate: Date.now() + 24*60*60*1000,
+  due_date: Date.now() + 24*60*60*1000,
   status:'TODO',
   labels: '',
   // "comments": null,
@@ -136,13 +136,13 @@ export class ManageTasks extends React.Component {
     },
     {
       Header: 'Due Date',
-      Cell: row => (<span>{new Date(row.original.dueDate).toLocaleString('en-US')}</span>),
+      Cell: row => (<span>{new Date(row.original.due_date).toLocaleString('en-US')}</span>),
       filterable: false,
       style: { textAlign: "center" },
     },
     {
       Header: 'Project Name',
-      accessor: 'projectName',
+      accessor: 'project',
       Filter: ({ filter, onChange }) => (
         <input
           type="text"
@@ -162,8 +162,8 @@ export class ManageTasks extends React.Component {
     },
     {
       Header: 'Labels',
-      Cell: row => (<span>{row.original.labels.map(label => label.labelName).join(', ')}</span>),
-      filterable: false,
+      Cell: row => (<span>{row.original.labels.join(', ')}</span>),
+      filterable: true,
       style: { textAlign: 'center' },
     },
 
@@ -223,7 +223,7 @@ export class ManageTasks extends React.Component {
 
   getAllTasksListener(nextProps) {
     if(commonUtils.compare(nextProps.getAllTasksSuccess,this.props.getAllTasksSuccess)){
-      this.setState({tasks: nextProps.getAllTasksSuccess.data})
+      this.setState({tasks: nextProps.getAllTasksSuccess})
     }
     if(commonUtils.compare(nextProps.getAllTasksFailure,this.props.getAllTasksFailure)){
       this.manageNotificationModal(true, nextProps.getAllTasksFailure.error, "danger")
@@ -232,10 +232,10 @@ export class ManageTasks extends React.Component {
 
   getAllTasksByIdListener(nextProps){
     if(commonUtils.compare(nextProps.getAllTasksByIdSuccess,this.props.getAllTasksByIdSuccess)){
-      this.setState({selectedTaskData: nextProps.getAllTasksByIdSuccess.data},()=>{
+      this.setState({selectedTaskData: nextProps.getAllTasksByIdSuccess},()=>{
         if(this.state.isEditTask){
 
-          this.setState({payload:nextProps.getAllTasksByIdSuccess.data},()=>{
+          this.setState({payload:nextProps.getAllTasksByIdSuccess},()=>{
             $('#myModal').css({ display: "block" })
           })
         }
@@ -286,11 +286,11 @@ export class ManageTasks extends React.Component {
     if(this.state.isEditTask){
       console.log("payload--",payload)
       payload.id=this.state.selectedTaskId;
-      payload.dueDate =  Date.parse(payload.dueDate)
+      payload.due_date =  Date.parse(payload.due_date)
       this.props.updateTask(payload);
     }else {
-      console.log("dueDate---",payload.dueDate)
-      payload.dueDate =  Date.parse(payload.dueDate)
+      console.log("due_date---",payload.due_date)
+      payload.due_date =  Date.parse(payload.due_date)
       this.props.createTask(payload);
     }
   }
@@ -307,11 +307,11 @@ export class ManageTasks extends React.Component {
     this.setState({ payload })
   }
   convertDueDateToDateTimeLocal = () => {
-    const milliseconds = this.state.payload.dueDate;
+    const milliseconds = this.state.payload.due_date;
     if (milliseconds !== undefined) { // Add this check
       return this.getDateTimeLocal(milliseconds);
     }
-    return ''; // or return a default value if dueDate is undefined
+    return ''; // or return a default value if due_date is undefined
   }
 
   getDateTimeLocal(milliseconds) {
@@ -378,8 +378,8 @@ export class ManageTasks extends React.Component {
 
 
                   <div className="form-group">
-                    <label htmlFor="dueDate">Task Due Date :</label>
-                    <input type="datetime-local" id="dueDate" autoComplete="on"
+                    <label htmlFor="due_date">Task Due Date :</label>
+                    <input type="datetime-local" id="due_date" autoComplete="on"
                            value={this.convertDueDateToDateTimeLocal()}
                            className="form-control" placeholder="Task Due Date"
                            required onChange={this.onChangeHandler}/>
