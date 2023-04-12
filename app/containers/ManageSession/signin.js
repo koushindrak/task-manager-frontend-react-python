@@ -98,7 +98,7 @@ class ManageSession extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div  className="scoped-container">
         <div className="container" id="container">
           <div className="form-container sign-up-container">
             <form onSubmit={this.signupHandler}>
