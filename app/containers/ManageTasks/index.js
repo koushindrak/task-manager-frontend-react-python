@@ -23,6 +23,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import NotificationModal from '../../components/NotificationModal/Loadable'
 import * as commonUtils from '../../common-files/commonUtils'
+import {next} from "lodash/seq";
 
 
 
@@ -34,18 +35,19 @@ const defaultButton = props => (
 const statusColumn = {
   Header: 'Status',
   accessor: 'status',
+  width: 150,
   filterable: true,
   filterMethod: (filter, row) => {
     const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
     const filterValue = filter.value.toLowerCase(); // Convert filter value to lowercase
     return value.includes(filterValue); // Perform case-insensitive comparison
   },
-  style: { textAlign: "center" },
+  style: { textAlign: "center",width: "10%" },
   Cell: row => (
     <div
       style={{
         backgroundColor: getStatusColor(row.value),
-        padding: '10px', // Decreased padding for a sleeker look
+        padding: '0px', // Decreased padding for a sleeker look
         borderRadius: '4px', // Added border radius for a rounded look
         color: '#fff', // Set text color to white for better contrast
         fontWeight: 'bold', // Increased font weight for emphasis
@@ -115,6 +117,7 @@ export class ManageTasks extends React.Component {
     {
       Header: 'Name',
       accessor:'name',
+      width: 200,
       filterable: true,
       filterMethod: (filter, row) => {
         const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
@@ -126,6 +129,7 @@ export class ManageTasks extends React.Component {
     {
       Header: 'Description',
       accessor: 'description',
+      width: 240,
       filterable: true,
       filterMethod: (filter, row) => {
         const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
@@ -136,40 +140,54 @@ export class ManageTasks extends React.Component {
     },
     {
       Header: 'Due Date',
+      width: 190,
       Cell: row => (<span>{new Date(row.original.due_date).toLocaleString('en-US')}</span>),
-      filterable: false,
-      style: { textAlign: "center" },
-    },
-    {
-      Header: 'Project Name',
-      accessor: 'project',
-      Filter: ({ filter, onChange }) => (
-        <input
-          type="text"
-          placeholder="Search Project name" // Placeholder text
-          value={filter ? filter.value : ''}
-          onChange={event => onChange(event.target.value)}
-          style={{ width: '100%' }} // Adjust the width as needed
-        />
-      ),
       filterable: true,
-      filterMethod: (filter, row) => {
-        const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
-        const filterValue = filter.value.toLowerCase(); // Convert filter value to lowercase
-        return value.includes(filterValue); // Perform case-insensitive comparison
-      },
       style: { textAlign: "center" },
+      filterMethod: (filter1, row1) => {
+        const value1 = new Date(row1._original.due_date).toLocaleString('en-US').toLowerCase();
+        const filterValue1 = filter1.value.toLowerCase();
+        return value1.includes(filterValue1);
+      }
     },
+    // {
+    //   Header: 'Project Name',
+    //   accessor: 'project',
+    //   Filter: ({ filter, onChange }) => (
+    //     <input
+    //       type="text"
+    //       placeholder="Search Project name" // Placeholder text
+    //       value={filter ? filter.value : ''}
+    //       onChange={event => onChange(event.target.value)}
+    //       style={{ width: '100%' }} // Adjust the width as needed
+    //     />
+    //   ),
+    //   filterable: true,
+    //   filterMethod: (filter, row) => {
+    //     const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
+    //     const filterValue = filter.value.toLowerCase(); // Convert filter value to lowercase
+    //     return value.includes(filterValue); // Perform case-insensitive comparison
+    //   },
+    //   style: { textAlign: "center" },
+    // },
     {
       Header: 'Labels',
-      Cell: row => (<span>{row.original.labels.join(', ')}</span>),
-      filterable: true,
+      width: 250,
+      Cell: row => (<span>{row.original.labels.map(label => label.name).join(', ')}</span>),
+      filterable: false,
       style: { textAlign: 'center' },
+      filterMethod: (filter, row) => {
+        const value = row._original.labels.map(label => label.name).join(', ').toLowerCase();
+        const filterValue = filter.value.toLowerCase();
+        return value.includes(filterValue);
+      }
     },
 
     statusColumn,
     {
       Header: 'Actions',
+      width: 109,
+      style: { textAlign: 'center' },
       Cell: row => {
         return (
           <div>
@@ -259,11 +277,14 @@ export class ManageTasks extends React.Component {
   }
 
   deleteTaskListener(nextProps) {
+    console.log("task deletion-------",nextProps)
     if(commonUtils.compare(nextProps.deleteTaskSuccess,this.props.deleteTaskSuccess)){
+      console.log("TASK DELETED SUCCESSFULLY")
       this.props.getAllTasks()
       this.manageNotificationModal(true, nextProps.deleteTaskSuccess.displayMessage, "success")
     }
     if(commonUtils.compare(nextProps.deleteTaskFailure,this.props.deleteTaskFailure)){
+      console.log("TASK NOT DELETED")
       this.manageNotificationModal(true, nextProps.deleteTaskFailure.error, "danger")
     }
   }

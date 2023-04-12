@@ -1,0 +1,26 @@
+
+/* Form css */
+.form-group {
+  margin: 25px;
+}
+
+.form-group .form-control {
+  padding: 10px 20px;
+  border: 1px solid black ;
+  opacity: .4;
+  border-radius:20px;
+  height: auto;
+  font-size: 14px;
+  color: black;
+}
+.form-control input {
+  color: black;
+}
+.form-control input:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+.form-group .form-control:focus {
+  box-shadow:inset 0 0 6px rgba(0, 0, 0, 1)
+}
+/* Form css */

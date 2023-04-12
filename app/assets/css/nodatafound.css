@@ -1,0 +1,15 @@
+
+.noDataFound {
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.noDataFound button{
+  background-color: black;
+  color: white;
+  padding: 7px;
+  border-radius: 20px;
+}

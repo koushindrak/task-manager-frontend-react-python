@@ -1,0 +1,108 @@
+/* React Table */
+/* React Table */
+.customReactTable.ReactTable {
+  border: 2px;
+  font-family: 'Arial', sans-serif;
+  background-color: white;
+  border-radius: 0px;
+  box-shadow: 0px 4px 10px rgba(239, 141, 141, 0.1);
+  overflow: hidden;
+  margin-top: 40px; /* Added margin-top to push the table header down */
+}
+
+.customReactTable.ReactTable .rt-table .rt-thead {
+  background-color: #57f3ee;
+  border-bottom: 2px solid #f6f6f6;
+  position: sticky; /* Add this line */
+  top: 0; /* Add this line */
+  z-index: 100; /* Add this line, optional but helps in case of overlapping elements */
+}
+
+.customReactTable.ReactTable .rt-table .rt-thead .rt-tr .rt-th {
+  font-size: 16px;
+  padding: 12px 14px;
+  text-align: center;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #967a7a;
+  transition: all 0.3s ease-in-out;
+  position: sticky; /* Add this line */
+  top: 0; /* Add this line */
+  z-index: 100; /* Add this line, optional but helps in case of overlapping elements */
+}
+
+
+.customReactTable.ReactTable .rt-table .rt-thead .rt-tr .rt-th:hover {
+  background-color: #2851de;
+  color: #ffffff;
+}
+.ReactTable .rt-thead.-filters input, .ReactTable .rt-thead.-filters select {
+  background-color: #fdfdfd;
+  color: #000710;
+}
+.customReactTable.ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td {
+  padding: 6px 8px;
+  font-size: 14px;
+  color: #333;
+  transition: all ease-in-out 0.3s;
+  vertical-align: middle;
+  line-height: 1.8;
+  position: relative;
+  font-weight: 400;
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+}
+
+.customReactTable.ReactTable .rt-table .rt-tbody .rt-tr-group:nth-child(even) .rt-td {
+  background-color: #f5f5f5;
+}
+
+.customReactTable.ReactTable .rt-table .rt-tbody .rt-tr-group:hover .rt-td {
+  background-color: #e1e9ff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+/* PAGINATION BUTTON DESIGNS */
+.ReactTable .-pagination .-previous {
+  display: block;
+  padding: 5px 10px;
+  border: 2px solid #0f29d9;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  background-color: #ffffff;
+  color: #0f29d9;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.ReactTable .-pagination .-previous:hover {
+  background-color: #0f29d9;
+  color: #ffffff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.ReactTable .-pagination .-next {
+  display: block;
+  padding: 5px 10px;
+  border: 2px solid #0f29d9;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  background-color: #ffffff;
+  color: #0f29d9;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.ReactTable .-pagination .-next:hover {
+  background-color: #0f29d9;
+  color: #ffffff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+
+/* React Table */

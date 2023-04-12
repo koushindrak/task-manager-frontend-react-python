@@ -39,7 +39,7 @@ class NotificationModal extends React.Component {
     let timeOutTime = 10000;
     store.addNotification({
       title: "",
-      message: this.props.message,
+      message: this.props.type === "success" ? "Request Completed SuccessFull" : this.props.message,
       type: this.props.type === "success" ? "success" : "danger",
       insert: "top",
       container: this.props.type === "success" ? "top-right" : "top-right",

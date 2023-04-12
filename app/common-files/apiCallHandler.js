@@ -51,10 +51,16 @@ function* apiTryBlockHandler(action,responseConst,apiUrlConstant,type,isBaseUrl,
     if(action.payload){
       console.log('action.payload: ', action.payload);
       const response = yield call(urlAndMethod.method, urlAndMethod.url, action.payload, COMMON_UTILS.GetHeaders());
+      console.log("API-RESPONSE-OBJECT-IN-TRY-BLOCK1---",response)
       yield put({ type: responseConst, response: response.data })
     }else {
       const response = yield call(urlAndMethod.method, urlAndMethod.url, COMMON_UTILS.GetHeaders());
-      yield put({ type: responseConst, response: response.data})
+      console.log("API-RESPONSE-OBJECT-IN-TRY-BLOCK2---",response)
+      if(response.status === 204){
+        yield put({ type: responseConst, response: "Entity Deleted SuccessFully"})
+      }else{
+        yield put({ type: responseConst, response: response.data})
+      }
     }
   }else {
     let apiName = COMMON_UTILS.getKeyByValue(apis,apiUrlConstant);
@@ -62,6 +68,7 @@ function* apiTryBlockHandler(action,responseConst,apiUrlConstant,type,isBaseUrl,
     switch (apiName) {
       case "LOGIN": {
         const response = yield call(axios.post, window.URL+apis.LOGIN, action.payload);
+        console.log("LOGIN-RESPONSE-OBJECT-IN-TRY-BLOCK3---",response)
         yield put({type: responseConst, response: response.data})
         break;
       }
@@ -83,10 +90,10 @@ function setUrlAndMethod(type, url, action, method) {
     case apiTypes.GET_ALL:
       break;
     case  apiTypes.GET_BY_ID:
-      url = url +action.id+"/"
+      url = url +"/"+action.id+"/"
       break;
     case  apiTypes.UPDATE_BY_ID:
-      url = url +"update/"+ action.payload.id+"/";
+      url = url +"/update/"+ action.payload.id+"/";
       method = axios.put;
       break;
     case  apiTypes.DELETE_BY_ID:

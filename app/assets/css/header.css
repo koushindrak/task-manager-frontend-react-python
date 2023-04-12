@@ -1,0 +1,55 @@
+
+/* header */
+
+.header {
+  background-image: linear-gradient(-20deg,#ad5389,#3c1053)!important;
+  height: 50px;
+  right:0;
+  left:200px;
+  top: 0;
+  position: fixed;
+  z-index: 5;
+  box-shadow: 0 3px 5px rgba(0,0,0,.15);
+}
+
+.headerContent {
+  margin: 0px;
+  height: inherit;
+  display: flex;
+}
+
+.headerContent  > * {
+  color: white;
+}
+.logoutButton {
+  flex:.1;
+  padding:5px;
+  font-weight: bold;
+  text-transform: capitalize;
+  float: right;
+  justify-content: center;
+  display: flex;
+}
+.logoutButton  p {
+  margin: 0;
+  padding:5px
+}
+.info  {
+  flex: .9;
+  padding:5px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.info p{
+  margin: 0px;
+  padding: 5px 5px 5px 20px;
+
+}
+
+.logoutButton p:hover {
+  color:red;
+  cursor: pointer;
+
+}
+/* header */

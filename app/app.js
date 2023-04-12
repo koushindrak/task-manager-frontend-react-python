@@ -37,8 +37,21 @@ import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
+import './assets/css/colors.css';
+import './assets/css/container.css';
+import './assets/css/flex.css';
+import './assets/css/footer.css';
+import './assets/css/form.css';
+import './assets/css/header.css';
+import './assets/css/loader.css';
+import './assets/css/login-form.css';
 import './assets/css/main.css';
+// import './assets/css/main_backup.css';
+import './assets/css/modals.css';
+import './assets/css/nodatafound.css';
+import './assets/css/react-table-design.css';
 import './assets/css/sidebar.css';
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';

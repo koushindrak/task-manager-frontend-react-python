@@ -1,0 +1,21 @@
+.footer ul li {
+  display: inline-block;
+  padding-right: 15px;
+  margin-right: 15px;
+  position: relative;
+  cursor: not-allowed;
+}
+.footer ul li a:hover {
+  cursor: not-allowed;
+}
+.footer {
+  position: fixed;
+  right: 0;
+  left: 200px;
+  bottom: 0;
+  padding: 5px 10px 0px;
+  background-image: linear-gradient(135deg,#D3CCE3,#E9E4F0);
+  text-align: center;
+  border-top: 1px solid #c3cfe2;
+  z-index: 1;
+}

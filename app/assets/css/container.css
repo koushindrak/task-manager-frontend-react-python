@@ -1,0 +1,53 @@
+/* container */
+
+.contentInCenter {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.contentContainer {
+  position: relative;
+  padding: 20px 10px; /* Adjusted padding to reduce height */
+  max-height: 100vh; /* Set the maximum height based on the viewport height */
+  overflow-y: auto; /* Enable scrolling if the table exceeds the container height */
+  z-index: 1; /* Set a lower z-index to ensure table header is not overlapped */
+}
+
+/* container */
+
+/* container css */
+
+.contentHeader {
+  position: fixed;
+  padding: 12px 20px 12px 20px;
+  background-color: whitesmoke;
+  top: 50px;
+  left: 200px;
+  right: 0;
+  z-index: 5;
+  border-bottom: 2px solid;
+}
+
+.contentBox {
+  padding: 20px 0 20px 200px; /* Adjusted padding to reduce height */
+  position: relative;
+  z-index: 2; /* Set a higher z-index to ensure search box is visible */
+}
+
+.addButton {
+  color: white;
+  border: 1px solid;
+  border-radius: 50%;
+  background-image: linear-gradient(-20deg, #ad5389, #3c1053) !important;
+  float: right;
+}
+
+.contentHeader p {
+  margin: 0;
+  font-weight: 800;
+}
+.p-0 {
+  padding: 0;
+}
+/* container css */

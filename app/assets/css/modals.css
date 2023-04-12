@@ -1,0 +1,150 @@
+
+/* The Modal (background) */
+.customModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 200px;
+  top: 50px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  -webkit-animation-name: fadeIn; /* Fade in the background */
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+
+/* Modal Content */
+.customModal-content {
+  position: fixed; /* Set the position to fixed so the element stays in place */
+  top: 50%; /* Set the top property to 50% to center the element vertically */
+  left: 50%; /* Set the left property to 50% to center the element horizontally */
+  transform: translate(-50%, -50%); /* Use the transform property to center the element perfectly */
+  background-color: #fefefe; /* Set the background color */
+  width: 30%; /* Set the width of the element */
+  height: 80%; /* Set the height of the element */
+  -webkit-animation-name: slideIn; /* Use webkit prefix for Safari/Chrome */
+  -webkit-animation-duration: 0.4s; /* Set the duration of the animation */
+  animation-name: slideIn; /* Use non-prefixed version for other browsers */
+  animation-duration: 0.4s; /* Set the duration of the animation */
+  overflow-y: scroll; /* Add this property to enable vertical scrolling */
+
+}
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.customModal-header .close{
+  opacity: 1;
+}
+.customModal-header  p{
+  margin: 0px;
+  font-weight: 900;
+}
+
+.customModal-header {
+  padding: 12px 20px 12px 20px;
+  background-image: linear-gradient(-20deg,#ad5389,#3c1053)!important;
+  color: white;
+}
+
+.customModal-body {
+  padding: 2px 16px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+/* The Modal (background) */
+
+::-webkit-scrollbar {
+  width: 5px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.mr-r-10 {
+  margin-right: 10px ;
+}
+
+
+.d-block{
+  display: block;
+}
+.d-none{
+  display: none;
+}
+
+.react-notification-root {
+  top: 100px !important;
+}
+
+.newNotificationModal .notification-container-top-right {
+  top: 100px;
+  right:0px;
+  position: fixed;
+}
+.newNotificationModal .n-parent {
+  /* min-width: 400px; */
+  margin-right: 15px;
+}
+
+
+.modal-dialog{
+  min-width: 500px;
+}
+.modalContainer {
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
