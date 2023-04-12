@@ -18,6 +18,10 @@ const selectManageSessionDomain = state =>
 
 export const loginSuccess = () => createSelector(selectManageSessionDomain, substate => substate.loginResponse)
 export const loginFailure = () => createSelector(selectManageSessionDomain, substate => substate.loginFailure)
+
+export const signupSuccess = () => createSelector(selectManageSessionDomain, substate => substate.signupResponse)
+export const signupFailure = () => createSelector(selectManageSessionDomain, substate => substate.signupFailure)
+
 const makeSelectManageSession = () =>
   createSelector(selectManageSessionDomain, substate => substate);
 

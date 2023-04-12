@@ -111,6 +111,9 @@ ManageSession.propTypes = {
 const mapStateToProps = createStructuredSelector({
   loginSuccess: SELECTORS.loginSuccess(),
   loginFailure: SELECTORS.loginFailure(),
+
+  signupSuccess: SELECTORS.signupSuccess(),
+  signupFailure: SELECTORS.signupFailure(),
 });
 
 function mapDispatchToProps(dispatch) {

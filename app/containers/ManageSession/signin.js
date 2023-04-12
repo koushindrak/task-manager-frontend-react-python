@@ -44,6 +44,7 @@ class ManageSession extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
+
     if (nextProps.loginSuccess !== this.props.loginSuccess) {
       console.log("nextProps.loginSuccess",nextProps.loginSuccess)
       localStorage.token = nextProps.loginSuccess.access;
@@ -51,6 +52,18 @@ class ManageSession extends React.Component {
     }
     if(nextProps.loginFailure !== this.props.loginFailure){
       this.setState({openNotificationModal:true,type:"danger",message:nextProps.loginFailure.error,isFetching:false})
+    }
+
+
+    if (nextProps.signupSuccess && nextProps.signupSuccess !== this.props.signupSuccess) {
+      console.log("nextProps.signupSuccess",nextProps.signupSuccess)
+      // localStorage.token = nextProps.loginSuccess.access;
+      this.setState({openNotificationModal:true,type:"success",message:"Registration is completed successfully",isFetching:false})
+      // this.manageNotificationModal(true,"Registration is completed successfully", "success")
+      document.getElementById('container').classList.remove("right-panel-active");
+    }
+    if(nextProps.signupFailure !== this.props.signupFailure){
+      this.setState({openNotificationModal:true,type:"danger",message:nextProps.signupFailure.error,isFetching:false})
     }
   }
 
@@ -74,12 +87,14 @@ class ManageSession extends React.Component {
     })
     this.props.login(this.state.payload)
   }
-  loginHandler = event => {
+
+  signupHandler = event => {
     event.preventDefault();
     this.setState({
       isFetching:true
     })
-    // this.props.signup(this.state.payload)
+    console.log("===SIGNUP PAYLOAD----",this.state.payload)
+    this.props.signup(this.state.payload)
   }
   render() {
     return (
@@ -153,12 +168,17 @@ ManageSession.propTypes = {
 const mapStateToProps = createStructuredSelector({
   loginSuccess: SELECTORS.loginSuccess(),
   loginFailure: SELECTORS.loginFailure(),
+
+
+  signupSuccess: SELECTORS.signupSuccess(),
+  signupFailure: SELECTORS.signupFailure(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    login: payload => dispatch(ACTIONS.login(payload))
+    login: payload => dispatch(ACTIONS.login(payload)),
+    signup: payload => dispatch(ACTIONS.signup(payload))
   };
 }
 

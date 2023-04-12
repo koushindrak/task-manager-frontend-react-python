@@ -13,3 +13,11 @@ export function login(payload) {
     payload
   }
 }
+
+export function signup(payload) {
+  console.log("SIGNUP ACTION CALLED")
+  return {
+    type: CONSTANTS.SIGNUP,
+    payload
+  }
+}
