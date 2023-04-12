@@ -29,8 +29,75 @@ import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import NotificationModal from '../../components/NotificationModal/Loadable'
 import * as commonUtils from '../../common-files/commonUtils'
 import {DataGrid, GridColDef, GridToolbar, GridValueGetterParams} from '@mui/x-data-grid';
-import {columns1} from "./column_constants";
+// import {columns1} from "./column_constants";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const columns1: GridColDef[] = [
+  { field: 'name', headerName: 'Name', width: 150,align:"center"},
+  { field: 'description', headerName: 'Description', width: 200 },
+  {
+    field: 'startDate',
+    headerName: 'Start Date',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: true,
+    filterable: true,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${new Date(params.row.startDate).toLocaleString('en-US')}`
+  },
+  {
+    field: 'endDate',
+    headerName: 'End Date',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: true,
+    filterable: true,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${new Date(params.row.endDate).toLocaleString('en-US')}`
+  },
+  {
+    field: 'actions',
+    headerName: 'Actions',
+    renderCell: (params) => {
+      const row = params.row;
+      return (
+        <div>
+          <button
+            data-tip
+            data-for={"edit" + row.id}
+            onClick={()=>{
+              this.setState({ selectedProjectId: row.original.id, addOrEditIsFetching: true, isEditProject:true });
+              this.props.getProjectsById(row.original.id)
+            }}
+          >
+            <FontAwesomeIcon icon={faPen} />
+          </button>
+          <ReactTooltip id={"edit" + row.id} place="bottom" type="dark">
+            <div className="tooltipText">
+              <p>Edit</p>
+            </div>
+          </ReactTooltip>
+
+          <button
+            data-tip
+            data-for={"delete" + row.id}
+            onClick={() => {
+              // Handle delete action
+            }}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+          <ReactTooltip id={"delete" + row.id} place="bottom" type="dark">
+            <div className="tooltipText">
+              <p>Delete</p>
+            </div>
+          </ReactTooltip>
+        </div>
+      );
+    },
+  }
+];
+
 
 const darkTheme = createTheme({
   palette: {
@@ -111,7 +178,7 @@ export class ManageProjects extends React.Component {
 
   getProjectsListener(nextProps) {
     if(commonUtils.compare(nextProps.getProjectsSuccess,this.props.getProjectsSuccess)){
-      this.setState({vehicles: nextProps.getProjectsSuccess.data})
+      this.setState({vehicles: nextProps.getProjectsSuccess})
     }
     if(commonUtils.compare(nextProps.getProjectsFailure,this.props.getProjectsFailure)){
       this.manageNotificationModal(true, nextProps.getProjectsFailure.error, "danger")
