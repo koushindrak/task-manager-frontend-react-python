@@ -16,8 +16,10 @@
   height: 100%;
 }
 
-.vpsLogo {
-  height: 200px
+.vpsLogo img {
+  width: 100px;
+  height: auto;
+  padding: 50px;
 }
 .sidenavContainer .sideNavLogo {
   position: absolute;
