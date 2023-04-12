@@ -143,16 +143,17 @@
     ]
   },
   "dependencies": {
-    "@mui/x-data-grid": "^5.11.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.16",
     "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-data-grid": "^5.11.1",
     "axios": "^0.19.2",
     "babel-polyfill": "6.26.0",
     "chalk": "2.4.1",
