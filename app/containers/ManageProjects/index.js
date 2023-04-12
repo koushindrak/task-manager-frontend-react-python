@@ -135,7 +135,7 @@ let payload = {
 }
 export class ManageProjects extends React.Component {
   state = {
-    vehicles: [],
+    projects: [],
     parkingAreas: [],
     payload: payload,
     selectedProjectId: '',
@@ -178,7 +178,7 @@ export class ManageProjects extends React.Component {
 
   getProjectsListener(nextProps) {
     if(commonUtils.compare(nextProps.getProjectsSuccess,this.props.getProjectsSuccess)){
-      this.setState({vehicles: nextProps.getProjectsSuccess})
+      this.setState({projects: nextProps.getProjectsSuccess})
     }
     if(commonUtils.compare(nextProps.getProjectsFailure,this.props.getProjectsFailure)){
       this.manageNotificationModal(true, nextProps.getProjectsFailure.error, "danger")
@@ -300,7 +300,7 @@ export class ManageProjects extends React.Component {
           <div style={{ height: 350, width: '100%',paddingTop:20 }}>
 
             <DataGrid
-              rows={this.state.vehicles}
+              rows={this.state.projects}
               columns={columns1}
               pageSize={5}
               rowsPerPageOptions={[5]}

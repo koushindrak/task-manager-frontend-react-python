@@ -36,9 +36,3 @@ export function deleteProject(id) {
     id
   }
 }
-
-export function getParkingAreas() {
-  return {
-    type: CONSTANTS.GET_PARKING_AREAS
-  }
-}

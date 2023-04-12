@@ -15,12 +15,7 @@ export function* handleGetProjectRequest(action) {
 export function* watchGetProjectRequest() {
   yield takeEvery(CONSTANTS.GET_PROJECTS,handleGetProjectRequest)
 }
-export function* handleGetParkingAreaRequest(action) {
-  yield [apiCallHandler(action, CONSTANTS.GET_PARKING_AREAS_SUCCESS, CONSTANTS.GET_PARKING_AREAS_FAILURE, apis.PARKING_AREA_APIS_BASE_URL,apiTypes.GET_ALL)];
-}
-export function* watchGetParkingAreasRequest() {
-  yield takeEvery(CONSTANTS.GET_PARKING_AREAS,handleGetParkingAreaRequest)
-}
+
 
 export function* handleGetProjectByIdRequest(action) {
   yield [apiCallHandler(action, CONSTANTS.GET_PROJECT_BY_ID_SUCCESS, CONSTANTS.GET_PROJECT_BY_ID_FAILURE, apis.PROJECT_APIS_BASE_URL,apiTypes.GET_BY_ID)];
@@ -46,7 +41,6 @@ export default function* defaultSaga() {
   yield [
     watchCreateProjectRequest(),
     watchGetProjectRequest(),
-    watchGetParkingAreasRequest(),
     watchGetProjectByIdRequest(),
     watchUpdateProjectRequest(),
     watchDeleteProjectRequest(),
