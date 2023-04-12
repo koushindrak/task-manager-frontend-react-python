@@ -88,7 +88,6 @@ export class ManageSession extends React.Component {
                 <div className="form-group contentInCenter">
                   <button type="submit" className="btn btn-primary" >Login</button>
                 </div>
-                <a className="f-12 text-primary">Forget Password</a>
               </form>
             </div>
           }
