@@ -84,7 +84,7 @@ let payload = {
   description: null,
   due_date: Date.now() + 24*60*60*1000,
   status:'TODO',
-  labels: null,
+  labels: [],
   priority: "MEDIUM",
   team_id: null,
   team_name: null,
@@ -240,10 +240,11 @@ export class ManageTasks extends React.Component {
   getAllTasksListener(nextProps) {
 
     if(commonUtils.compare(nextProps.getAllTasksSuccess,this.props.getAllTasksSuccess)){
-      console.log("this.props.match.params.id--"+this.props.match.params.id)
+      console.log("getAllTasksListener-this.props.match.params.id--"+this.props.match.params.id, "task---",nextProps.getAllTasksSuccess)
       if(this.props.match.params.id){
         const tasks = nextProps.getAllTasksSuccess;
-        const filteredTasks = tasks.filter(task => task.projectId === this.props.match.params.id);
+        const project_id = Number(this.props.match.params.id);
+        const filteredTasks = tasks.filter(task => task.project_id === project_id);
         this.setState({ tasks: filteredTasks });
       }else{
         this.setState({tasks: nextProps.getAllTasksSuccess})
@@ -312,7 +313,7 @@ export class ManageTasks extends React.Component {
     let payload = this.state.payload;
 
     if(this.props.match.params.id){
-      payload.projectId=parseInt(this.props.match.params.id);
+      payload.project_id=parseInt(this.props.match.params.id);
     }
 
     if(this.state.isEditTask){
@@ -325,6 +326,10 @@ export class ManageTasks extends React.Component {
       payload.due_date =  Date.parse(payload.due_date)
       this.props.createTask(payload);
     }
+    this.setState({
+      isEditTask:false,
+      isAddTask:false
+    })
   }
   onCloseHandler = (index) => {
     this.setState({
