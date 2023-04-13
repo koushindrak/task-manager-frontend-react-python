@@ -24,7 +24,7 @@
   text-align: center;
   font-weight: 600;
   color: #ffffff;
-  background-color: #967a7a;
+  background-color: rgba(14, 37, 59, 0.78);
   transition: all 0.3s ease-in-out;
   position: sticky; /* Add this line */
   top: 0; /* Add this line */

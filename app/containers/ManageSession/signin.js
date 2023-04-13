@@ -109,8 +109,8 @@ class ManageSession extends React.Component {
                 <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
               </div>
               <span>or use your email for registration</span>
-              <input type="text" placeholder="First Name" id="firstname"  value={this.state.payload.firstname} className="form-control" onChange={this.onChangeHandler}/>
-              <input type="text" placeholder="Last Name" id="lastname" value={this.state.payload.lastname} className="form-control" onChange={this.onChangeHandler}/>
+              <input type="text" placeholder="First Name" id="first_name"  value={this.state.payload.first_name} className="form-control" onChange={this.onChangeHandler}/>
+              <input type="text" placeholder="Last Name" id="last_name" value={this.state.payload.last_name} className="form-control" onChange={this.onChangeHandler}/>
               <input type="text" placeholder="Username"  id="username" value={this.state.payload.username} className="form-control" onChange={this.onChangeHandler}/>
               <input type="email" placeholder="Email" id="email" value={this.state.payload.email} className="form-control" onChange={this.onChangeHandler}/>
               <input type="password" placeholder="Password" id="password" value={this.state.payload.password} className="form-control" onChange={this.onChangeHandler}/>

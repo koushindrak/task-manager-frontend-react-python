@@ -2,21 +2,24 @@ import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 /**
- * Direct selector to the teams state domain
+ * Direct selector to the parkingAreas state domain
  */
 
-const selectTeamsDomain = state => state.get('teams', initialState);
+const selectManageTeamsDomain = state => state.get('teamss', initialState);
 
-/**
- * Other specific selectors
- */
+export const createTeamSuccess=()=> createSelector(selectManageTeamsDomain,substate=>substate.createTeamResponse)
+export const createTeamFailure=()=> createSelector(selectManageTeamsDomain,substate=>substate.createTeamError)
 
-/**
- * Default selector used by Teams
- */
+export const getTeamSuccess=()=> createSelector(selectManageTeamsDomain,substate=>substate.getTeamResponse)
+export const getTeamFailure=()=> createSelector(selectManageTeamsDomain,substate=>substate.getTeamError)
 
-const makeSelectTeams = () =>
-  createSelector(selectTeamsDomain, substate => substate.toJS());
+export const getTeamByIdSuccess=()=> createSelector(selectManageTeamsDomain,substate=>substate.getTeamByIdResponse)
+export const getTeamByIdFailure=()=> createSelector(selectManageTeamsDomain,substate=>substate.getTeamByIdError)
 
-export default makeSelectTeams;
-export { selectTeamsDomain };
+export const updateTeamSuccess=()=> createSelector(selectManageTeamsDomain,substate=>substate.updateTeamResponse)
+export const updateTeamFailure=()=> createSelector(selectManageTeamsDomain,substate=>substate.updateTeamError)
+
+export const deleteTeamSuccess=()=> createSelector(selectManageTeamsDomain,substate=>substate.deleteTeamResponse)
+export const deleteTeamFailure=()=> createSelector(selectManageTeamsDomain,substate=>substate.deleteTeamError)
+
+export { selectManageTeamsDomain };

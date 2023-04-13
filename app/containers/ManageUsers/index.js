@@ -22,6 +22,7 @@ import ReactTooltip from 'react-tooltip';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import NotificationModal from '../../components/NotificationModal/Loadable'
+import jwt_decode from "jwt-decode";
 
 
 const defaultButton = props => (
@@ -30,8 +31,8 @@ const defaultButton = props => (
   </button>
 )
 let payload = {
-  firstName: '',
-  lastName: '',
+  first_name: '',
+  last_name: '',
   email: '',
   phoneNumber: '',
   roleId: '',
@@ -56,7 +57,7 @@ export class ManageUsers extends React.Component {
   columns = [
     {
       Header: 'Name',
-      Cell: row => (<span>{row.original.firstName + " " + row.original.lastName}</span>),
+      Cell: row => (<span>{row.original.first_name + " " + row.original.last_name}</span>),
       filterable: true,
       style: { textAlign: "center" }
     },
@@ -67,8 +68,8 @@ export class ManageUsers extends React.Component {
       style: { textAlign: "center" }
     },
     {
-      Header: 'Phone No',
-      accessor: 'phoneNumbers',
+      Header: 'Username',
+      accessor: 'username',
       filterable: false,
       style: { textAlign: "center" },
     },
@@ -78,18 +79,20 @@ export class ManageUsers extends React.Component {
       filterable: false,
       style: { textAlign: "center" },
     },*/
-    {
-      Header: 'Created At',
-      Cell: row => (<span>{new Date(row.original.createdAt).toLocaleString('en-US')}</span>),
-      filterable: false,
-      style: { textAlign: "center" },
-    },
+    // {
+    //   Header: 'Created At',
+    //   Cell: row => (<span>{new Date(row.original.created_at).toLocaleString('en-US')}</span>),
+    //   filterable: false,
+    //   style: { textAlign: "center" },
+    // },
     {
       Header: 'Actions',
       Cell: row => {
         return (
           <div>
-            <button data-tip data-for={"edit" + row.original.id} onClick={()=>{
+            <button
+              disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser).id}
+              data-tip data-for={"edit" + row.original.id} onClick={()=>{
               this.setState({ selectedUserId: row.original.id, addOrEditIsFetching: true, isAddOrEditUser: true, isEditUser:true });
               this.props.getAllRoles()
               this.props.getUserById(row.original.id)
@@ -100,7 +103,9 @@ export class ManageUsers extends React.Component {
               <div className="tooltipText"><p>Edit</p></div>
             </ReactTooltip>
 
-            <button data-tip data-for={"delete" + row.original.id} onClick={() => {
+            <button
+              disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser).id}
+              data-tip data-for={"delete" + row.original.id} onClick={() => {
               this.setState({ selectedUserId: row.original.id });
               this.props.deleteUserById(row.original.id)
             }}>
@@ -196,6 +201,8 @@ export class ManageUsers extends React.Component {
   deleteUserListener(nextProps) {
     if (nextProps.deleteUserByIdSuccess && nextProps.deleteUserByIdSuccess !== this.props.deleteUserByIdSuccess) {
       this.manageNotificationModal(true,nextProps.deleteUserByIdSuccess.displayMessage,"success")
+      this.props.getAllUsers();
+      // this.props.getAllUsers();
     }
     if (nextProps.deleteUserByIdFailure && nextProps.deleteUserByIdFailure !== this.props.deleteUserByIdFailure) {
       this.manageNotificationModal(true,nextProps.deleteUserByIdFailure.error,"danger");
@@ -275,12 +282,12 @@ export class ManageUsers extends React.Component {
               </div>
               <div className="customModal-body">
                 <div className="form-group">
-                  <label htmlFor="firstName">First Name :</label>
-                  <input type="text" id="firstName" autoComplete="off" value={this.state.payload.firstName} className="form-control" placeholder="First Name" required onChange={this.onChangeHandler} />
+                  <label htmlFor="first_name">First Name :</label>
+                  <input type="text" id="first_name" autoComplete="off" value={this.state.payload.first_name} className="form-control" placeholder="First Name" required onChange={this.onChangeHandler} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="lastName">Last Name :</label>
-                  <input type="text" id="lastName" autoComplete="off" value={this.state.payload.lastName} className="form-control" placeholder="First Name" required onChange={this.onChangeHandler} />
+                  <label htmlFor="last_name">Last Name :</label>
+                  <input type="text" id="last_name" autoComplete="off" value={this.state.payload.last_name} className="form-control" placeholder="First Name" required onChange={this.onChangeHandler} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email :</label>

@@ -16,7 +16,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 
 let allContainers = ["ManageUsers", "ManageTasks", "ManageLabels", "ManageProjects", "AddOrEditParkingArea",
-  "Dashboard","CollapsibleTable","LabelTask"]
+  "Dashboard","CollapsibleTable","LabelTask","Teams"]
 
 allContainers.map(container => {
   window[container] = require(`../${container}/Loadable`).default;
@@ -60,8 +60,11 @@ export default class HomePage extends React.PureComponent {
       { "path": "/tasks", "component": ManageTasks },
       { "path": "/projects/tasks/:id?", "component": ManageTasks },
       { "path": "/labels/tasks/:id?", "component": LabelTask },
+      { "path": "/teams/users/:id?", "component": ManageUsers },
       { "path": "/projects", "component": ManageProjects },
       { "path": "/labels", "component": ManageLabels },
+      { "path": "/teams", "component": Teams },
+
       {"path":"/CollapsibleTable","component":CollapsibleTable}
 
       // { "path": "/addOrEditParkingArea/:id?", "component": AddOrEditParkingArea },
@@ -141,6 +144,14 @@ export default class HomePage extends React.PureComponent {
                   <Link to='/labels' >
                     <a >
                       Manage Labels
+                    </a>
+                  </Link>
+                </li>
+
+                <li data-value className={window.location.pathname === "/teams" ? "active" : ""}>
+                  <Link to='/teams' >
+                    <a >
+                      Manage Teams
                     </a>
                   </Link>
                 </li>

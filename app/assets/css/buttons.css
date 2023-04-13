@@ -1,0 +1,6 @@
+button[disabled] {
+  background-color: #ccc; /* change color as per your requirement */
+  color: #999;
+  margin-right: 5px;
+  cursor: not-allowed;
+}

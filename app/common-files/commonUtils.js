@@ -23,7 +23,7 @@ export function* ErrorCheck(action, error, errorConst) {
   }else if( error.response.status === 403){
     yield put({type: errorConst, error: error.response.data.detail, addOns: action});
   }else if (error.response.status === 500) {
-    yield put({type: errorConst, error: error.response.data.error, addOns: action});
+    yield put({type: errorConst, error: "Something Went Wrong, Please Try again later", addOns: action});
   }
   else if (error.response.status === 401) {
     localStorage.clear();

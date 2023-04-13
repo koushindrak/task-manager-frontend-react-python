@@ -13,11 +13,12 @@ export const apiTypes={
 }
 export const apis= {
   /*BASE APIS*/
-   USER_APIS_BASE_URL: "api/v1/users/kk",
+   USER_APIS_BASE_URL: "users",
    ROLE_APIS_BASE_URL: "api/v1/role",
    PROJECT_APIS_BASE_URL: "projects",
    TASK_APIS_BASE_URL: "tasks",
    LABEL_APIS_BASE_URL: "labels",
+   TEAM_APIS_BASE_URL: "teams",
    PARKING_AREA_APIS_BASE_URL: "api/v1/area",
 
   /*OTHER APIS*/

@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Teams
+ * Asynchronously loads the component for ManageTeams
  *
  */
 

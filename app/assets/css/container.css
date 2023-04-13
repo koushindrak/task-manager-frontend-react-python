@@ -38,9 +38,13 @@
 .addButton {
   color: white;
   border: 1px solid;
-  border-radius: 50%;
-  background-image: linear-gradient(-20deg, #ad5389, #3c1053) !important;
+  border-radius: 10%;
+  background-image: linear-gradient(-20deg, #1b5cd9, #3c1053) !important;
   float: right;
+  width: 50px;
+  height: 40px;
+  margin-bottom: -15px;
+  margin-top: -10px;
 }
 
 .contentHeader p {

@@ -51,12 +51,14 @@ import './assets/css/modals.css';
 import './assets/css/nodatafound.css';
 import './assets/css/react-table-design.css';
 import './assets/css/sidebar.css';
+import './assets/css/buttons.css';
 import './assets/css/MyDataGrid.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
 
 // Create redux store with history
 const initialState = {};
