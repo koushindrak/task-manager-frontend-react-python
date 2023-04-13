@@ -46,7 +46,7 @@ export default function* rootSaga() {
 }
 ```
 
-Then, in your `index.js`, use a decorator to inject the root saga:
+Then, in your `material-ui-data-grid-table.js`, use a decorator to inject the root saga:
 
 ```JS
 import injectSaga from 'utils/injectSaga';

@@ -25,24 +25,48 @@ import ReactTable from "react-table";
 import ReactTooltip from "react-tooltip";
 import 'react-table/react-table.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAd, faPen, faPlus, faPlusCircle, faTasks, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import NotificationModal from '../../components/NotificationModal/Loadable'
 import * as commonUtils from '../../common-files/commonUtils'
+import {DataGrid, GridColDef, GridToolbar, GridValueGetterParams} from '@mui/x-data-grid';
+// import {columns1} from "./column_constants";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import centeredHeader from '../../assets/css/MyDataGrid.css'
 
-const addButtonStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  marginTop: 10,
-  justifyContent: 'center',
-  backgroundColor: '#051628',
-  color: '#fff',
-  borderRadius: '10%',
-  width: '24px',
-  height: '16px',
-  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-  cursor: 'pointer',
+const tableStyles = {
+  root: {
+    '& .MuiDataGrid-cell--header': {
+      justifyContent: 'right',
+    },
+  },
 };
 
+
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'light', // Set the palette mode to dark
+    background: {
+      default: '#303030', // Set the background color
+      paper: '#efe0e0', // Set the background color for the paper component
+    },
+  },
+  overrides: {
+    // Override the styles for the DataGrid component
+    MuiDataGrid: {
+      root: {
+        '& .MuiDataGrid-cell': {
+          color: 'white', // Set the font color to white
+        },
+        '& .MuiDataGrid-row': {
+          '&:hover': {
+            backgroundColor: '#ffffff', // Set the hover background color
+          },
+        },
+      },
+    },
+  },
+});
 const defaultButton = props => (
   <button type="button" {...props} >
     {props.children}
@@ -69,71 +93,95 @@ export class ManageProjects extends React.Component {
     this.props.getProjects();
   }
 
-  columns = [
+  columns1: GridColDef[] = [
     {
-      Header: 'Name',
-      accessor:'name',
+      field: 'id',
+      headerName: 'id',
+      width: 200,
+      align:"center",
+      headerAlign: "center",
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      align:"center",
+      headerAlign: "center",
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 300 ,
+      align:"center",
+      headerAlign: "center",
+    },
+    {
+      field: 'startDate',
+      headerName: 'Start Date',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: true,
       filterable: true,
-      style: { textAlign: "center" }
+      align:"center",
+      headerAlign: "center",
+      width: 200,
+      valueGetter: (params: GridValueGetterParams) =>
+        `${new Date(params.row.start_date).toLocaleString('en-US')}`
     },
     {
-      Header: 'Description',
-      accessor: 'description',
+      field: 'endDate',
+      headerName: 'End Date',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: true,
       filterable: true,
-      style: { textAlign: "center" }
+      width: 200,
+      align:"center",
+      headerAlign: "center",
+      valueGetter: (params: GridValueGetterParams) =>
+        `${new Date(params.row.end_date).toLocaleString('en-US')}`
     },
     {
-      Header: 'Start Date',
-      Cell: row => (<span>{new Date(row.original.start_date).toLocaleString('en-US')}</span>),
-      accessor: 'start_date',
-      filterable: true,
-      style: { textAlign: "center" },
-    },
-    {
-      Header: 'End Date',
-      Cell: row => (<span>{new Date(row.original.end_date).toLocaleString('en-US')}</span>),
-      accessor: 'end_date',
-      filterable: false,
-      style: { textAlign: "center" },
-    },
-    {
-      Header: 'Actions',
-      Cell: row => {
+      field: 'actions',
+      headerName: 'Actions',
+      align:"center",
+      headerAlign: "center",
+      renderCell: (params) => {
+        const row = params.row;
         return (
           <div>
-
-            <button data-tip data-for={"edit" + row.original.id} onClick={()=>{
-              this.setState({ selectedProjectId: row.original.id, addOrEditIsFetching: true, isEditProject:true });
-              this.props.getProjectsById(row.original.id)
-            }}>
+            <button
+              data-tip
+              data-for={"edit" + row.id}
+              onClick={()=>{
+                console.log("row----",row)
+                this.setState({ selectedProjectId: row.id, addOrEditIsFetching: true, isEditProject:true });
+                this.props.getProjectsById(row.id)
+              }}
+            >
               <FontAwesomeIcon icon={faPen} />
             </button>
-            <ReactTooltip id={"edit" + row.original.id} place="bottom" type="dark">
-              <div className="tooltipText"><p>Edit Project</p></div>
+            <ReactTooltip id={"edit" + row.id} place="bottom" type="dark">
+              <div className="tooltipText">
+                <p>Edit</p>
+              </div>
             </ReactTooltip>
 
-            <button data-tip data-for={"delete" + row.original.id} onClick={() => {
-              this.setState({ selectedProjectId: row.original.id });
-              this.props.deleteProject(row.original.id)
-            }}>
+            <button
+              data-tip
+              data-for={"delete" + row.id}
+              onClick={() => {
+                // Handle delete action
+              }}
+            >
               <FontAwesomeIcon icon={faTrash} />
             </button>
-            <ReactTooltip id={"delete" + row.original.id} place="bottom" type="dark">
-              <div className="tooltipText"><p>Delete Project</p></div>
-            </ReactTooltip>
-
-            <button data-tip data-for={"addTask" + row.original.id} onClick={() => {
-              this.setState({ selectedProjectId: row.original.id });
-              this.props.history.push('projects/tasks/'+row.original.id);
-            }}>
-              <FontAwesomeIcon icon={faTasks}  />
-            </button>
-            <ReactTooltip id={"addTask" + row.original.id} place="bottom" type="dark">
-              <div className="tooltipText"><p>Add Task</p></div>
+            <ReactTooltip id={"delete" + row.id} place="bottom" type="dark">
+              <div className="tooltipText">
+                <p>Delete</p>
+              </div>
             </ReactTooltip>
           </div>
-        )
-      }
+        );
+      },
     }
   ];
 
@@ -149,7 +197,7 @@ export class ManageProjects extends React.Component {
   createProjectListener(nextProps) {
     if(commonUtils.compare(nextProps.createProjectSuccess,this.props.createProjectSuccess)){
       this.props.getProjects()
-      // this.manageNotificationModal(true, nextProps.createProjectSuccess.displayMessage, "success")
+      this.manageNotificationModal(true, nextProps.createProjectSuccess.displayMessage, "success")
       $('#myModal').css({display: "none"})
 
     }
@@ -160,8 +208,6 @@ export class ManageProjects extends React.Component {
   }
 
   getProjectsListener(nextProps) {
-    console.log("getProjectsListener-nextProps.getProjectsSuccess--",nextProps.getProjectsSuccess)
-
     if(commonUtils.compare(nextProps.getProjectsSuccess,this.props.getProjectsSuccess)){
       this.setState({projects: nextProps.getProjectsSuccess})
     }
@@ -172,10 +218,10 @@ export class ManageProjects extends React.Component {
 
 
   getProjectsByIdListener(nextProps){
+    console.log("getProjectsByIdListener-nextProps--",nextProps)
     if(commonUtils.compare(nextProps.getProjectsByIdSuccess,this.props.getProjectsByIdSuccess)){
       this.setState({selectedProjectData: nextProps.getProjectsByIdSuccess},()=>{
         if(this.state.isEditProject){
-
           this.setState({payload:nextProps.getProjectsByIdSuccess},()=>{
             $('#myModal').css({ display: "block" })
           })
@@ -285,17 +331,22 @@ export class ManageProjects extends React.Component {
             </div>
 
           </div>
-          <div className="contentContainer">
-            <ReactTable
-              data={this.state.projects}
-              columns={this.columns}
-              defaultPageSize={10}
-              noDataText={"No Data Found"}
-              className="customReactTable"
-              PreviousComponent={defaultButton}
-              NextComponent={defaultButton}
+          <ThemeProvider theme={darkTheme}>
+
+          <div style={{ height: '88vh', width: '100%', paddingTop: '60px' }}>
+
+            <DataGrid
+              rows={this.state.projects}
+              columns={this.columns1}
+              pageSize={10}
+              rowsPerPageOptions={[5]}
+              // checkboxSelection
+              components={{
+                Toolbar: GridToolbar, // Use the GridToolbar component for the toolbar
+              }}
             />
           </div>
+          </ThemeProvider>
 
           <div id="myModal" className="customModal">
             <form onSubmit={this.addOrEditSubmitHandler}>
@@ -325,16 +376,16 @@ export class ManageProjects extends React.Component {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="start_date">Project Start Date :</label>
-                    <input type="datetime-local" id="start_date" autoComplete="off"
+                    <label htmlFor="startDate">Project Start Date :</label>
+                    <input type="datetime-local" id="startDate" autoComplete="off"
                            value={this.convertStartDateToDateTimeLocal(this.state.payload.start_date)}
                            className="form-control" placeholder="Project Start Date"
                            required onChange={this.onChangeHandler}/>
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="end_date">Project End Date :</label>
-                    <input type="datetime-local" id="end_date" autoComplete="off"
+                    <label htmlFor="endDate">Project End Date :</label>
+                    <input type="datetime-local" id="endDate" autoComplete="off"
                            value={this.convertEndDateToDateTimeLocal(this.state.payload.end_date)}
                            className="form-control" placeholder="Project End Date"
                            required onChange={this.onChangeHandler}/>
@@ -346,16 +397,26 @@ export class ManageProjects extends React.Component {
                       <option key="INACTIVE" value="INACTIVE">INACTIVE</option>)
                     </select>
                   </div>
+                  {/*<div className="form-group">*/}
+                  {/*  <label> Parking Areas : </label>*/}
+                  {/*  <select className="form-control" value={this.state.payload.parkingAreaId} name="parkingAreaId" id="parkingAreaId" required onChange={this.onChangeHandler}>*/}
+                  {/*    <option value=""> select</option>*/}
+                  {/*    {this.state.parkingAreas.map((type, index) => {*/}
+                  {/*      return (<option key={index} value={type.id}>{type.id}</option>)*/}
+                  {/*    })*/}
+                  {/*    }*/}
+                  {/*  </select>*/}
+                  {/*</div>*/}
                 </div>
               </div>
             </form>
           </div>
           {this.state.openNotificationModal &&
-            <NotificationModal
-              type={this.state.type}
-              message={this.state.message}
-              onCloseHandler={this.onCloseHandler}
-            />
+          <NotificationModal
+            type={this.state.type}
+            message={this.state.message}
+            onCloseHandler={this.onCloseHandler}
+          />
           }
         </React.Fragment>
 

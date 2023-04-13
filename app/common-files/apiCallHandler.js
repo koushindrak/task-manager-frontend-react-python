@@ -15,7 +15,7 @@ export const apis= {
   /*BASE APIS*/
    USER_APIS_BASE_URL: "api/v1/users/kk",
    ROLE_APIS_BASE_URL: "api/v1/role",
-   PROJECT_APIS_BASE_URL: "projects/",
+   PROJECT_APIS_BASE_URL: "projects",
    TASK_APIS_BASE_URL: "tasks",
    PARKING_AREA_APIS_BASE_URL: "api/v1/area",
 
@@ -59,6 +59,7 @@ function* apiTryBlockHandler(action,responseConst,apiUrlConstant,type,isBaseUrl,
       console.log("API-RESPONSE-OBJECT-IN-TRY-BLOCK2---",response)
       if(response.status === 204){
         yield put({ type: responseConst, response: "Entity Deleted SuccessFully"})
+        console.log("response after deletion--",response)
       }else{
         yield put({ type: responseConst, response: response.data})
       }

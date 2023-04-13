@@ -24,12 +24,6 @@ function manageProjectsReducer(state = initialState, action) {
     case CONSTANTS.GET_PROJECTS_FAILURE:
       return Object.assign({},state, {getProjectError:{error:action.error,errorTime:new Date()}})
 
-    case CONSTANTS.GET_PARKING_AREAS_SUCCESS:
-      return Object.assign({},state,{getParkingAreasResponse:action.response})
-
-    case CONSTANTS.GET_PARKING_AREAS_FAILURE:
-      return Object.assign({},state, {getParkingAreasError:{error:action.error,errorTime:new Date()}})
-
     case CONSTANTS.GET_PROJECT_BY_ID_SUCCESS:
       return Object.assign({},state,{getProjectByIdResponse:action.response})
 

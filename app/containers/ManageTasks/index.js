@@ -78,20 +78,18 @@ const getStatusColor = (status) => {
       return 'transparent'; // Set default background color
   }
 };
-let dueDateOld;
+
 let payload = {
-  id: '',
-  name: '',
-  description: "",
+  name: null,
+  description: null,
   due_date: Date.now() + 24*60*60*1000,
   status:'TODO',
-  labels: '',
-  // "comments": null,
+  labels: null,
   priority: "MEDIUM",
-  // "groupId": null,
-  groupName: '',
-  // "projectId": null,
-  projectName: ''
+  team_id: null,
+  team_name: null,
+  project_id: null,
+  project_name: null
 }
 export class ManageTasks extends React.Component {
   state = {
@@ -129,7 +127,7 @@ export class ManageTasks extends React.Component {
     {
       Header: 'Description',
       accessor: 'description',
-      width: 240,
+      width: 200,
       filterable: true,
       filterMethod: (filter, row) => {
         const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
@@ -140,7 +138,7 @@ export class ManageTasks extends React.Component {
     },
     {
       Header: 'Due Date',
-      width: 190,
+      width: 200,
       Cell: row => (<span>{new Date(row.original.due_date).toLocaleString('en-US')}</span>),
       filterable: true,
       style: { textAlign: "center" },
@@ -150,29 +148,29 @@ export class ManageTasks extends React.Component {
         return value1.includes(filterValue1);
       }
     },
-    // {
-    //   Header: 'Project Name',
-    //   accessor: 'project',
-    //   Filter: ({ filter, onChange }) => (
-    //     <input
-    //       type="text"
-    //       placeholder="Search Project name" // Placeholder text
-    //       value={filter ? filter.value : ''}
-    //       onChange={event => onChange(event.target.value)}
-    //       style={{ width: '100%' }} // Adjust the width as needed
-    //     />
-    //   ),
-    //   filterable: true,
-    //   filterMethod: (filter, row) => {
-    //     const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
-    //     const filterValue = filter.value.toLowerCase(); // Convert filter value to lowercase
-    //     return value.includes(filterValue); // Perform case-insensitive comparison
-    //   },
-    //   style: { textAlign: "center" },
-    // },
+    {
+      Header: 'Project Name',
+      accessor: 'project_name',
+      width: 190,
+      Filter: ({ filter, onChange }) => (
+        <input
+          type="text"
+          value={filter ? filter.value : ''}
+          onChange={event => onChange(event.target.value)}
+          style={{ width: '100%' }} // Adjust the width as needed
+        />
+      ),
+      filterable: true,
+      filterMethod: (filter, row) => {
+        const value = row[filter.id] ?  row[filter.id].toLowerCase() : ""; // Convert data value to lowercase
+        const filterValue = filter.value.toLowerCase(); // Convert filter value to lowercase
+        return value.includes(filterValue); // Perform case-insensitive comparison
+      },
+      style: { textAlign: "center" },
+    },
     {
       Header: 'Labels',
-      width: 250,
+      width: 180,
       Cell: row => (<span>{row.original.labels.map(label => label.name).join(', ')}</span>),
       filterable: false,
       style: { textAlign: 'center' },
@@ -186,7 +184,7 @@ export class ManageTasks extends React.Component {
     statusColumn,
     {
       Header: 'Actions',
-      width: 109,
+      width: 100,
       style: { textAlign: 'center' },
       Cell: row => {
         return (
@@ -240,8 +238,16 @@ export class ManageTasks extends React.Component {
   }
 
   getAllTasksListener(nextProps) {
+
     if(commonUtils.compare(nextProps.getAllTasksSuccess,this.props.getAllTasksSuccess)){
-      this.setState({tasks: nextProps.getAllTasksSuccess})
+      console.log("this.props.match.params.id--"+this.props.match.params.id)
+      if(this.props.match.params.id){
+        const tasks = nextProps.getAllTasksSuccess;
+        const filteredTasks = tasks.filter(task => task.projectId === this.props.match.params.id);
+        this.setState({ tasks: filteredTasks });
+      }else{
+        this.setState({tasks: nextProps.getAllTasksSuccess})
+      }
     }
     if(commonUtils.compare(nextProps.getAllTasksFailure,this.props.getAllTasksFailure)){
       this.manageNotificationModal(true, nextProps.getAllTasksFailure.error, "danger")
@@ -304,6 +310,11 @@ export class ManageTasks extends React.Component {
 
     event.preventDefault();
     let payload = this.state.payload;
+
+    if(this.props.match.params.id){
+      payload.projectId=parseInt(this.props.match.params.id);
+    }
+
     if(this.state.isEditTask){
       console.log("payload--",payload)
       payload.id=this.state.selectedTaskId;

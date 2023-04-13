@@ -1,5 +1,5 @@
 /**
- * generator/index.js
+ * generator/material-ui-data-grid-table.js
  *
  * Exports the generators so plop knows them
  */

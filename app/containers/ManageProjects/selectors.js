@@ -13,9 +13,6 @@ export const createProjectFailure=()=> createSelector(selectManageProjectsDomain
 export const getProjectSuccess=()=> createSelector(selectManageProjectsDomain,substate=>substate.getProjectResponse)
 export const getProjectFailure=()=> createSelector(selectManageProjectsDomain,substate=>substate.getProjectError)
 
-export const getParkingAreasSuccess=()=> createSelector(selectManageProjectsDomain,substate=>substate.getParkingAreasResponse)
-export const getParkingAreasFailure=()=> createSelector(selectManageProjectsDomain,substate=>substate.getParkingAreasFailure)
-
 export const getProjectByIdSuccess=()=> createSelector(selectManageProjectsDomain,substate=>substate.getProjectByIdResponse)
 export const getProjectByIdFailure=()=> createSelector(selectManageProjectsDomain,substate=>substate.getProjectByIdError)
 

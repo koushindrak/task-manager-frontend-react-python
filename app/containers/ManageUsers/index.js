@@ -151,8 +151,8 @@ export class ManageUsers extends React.Component {
   getUserByIdListener(nextProps) {
     if (nextProps.getUserByIdSuccess && nextProps.getUserByIdSuccess !== this.props.getUserByIdSuccess) {
       this.setState({
-        selectedUserData: nextProps.getUserByIdSuccess.data,
-        payload:nextProps.getUserByIdSuccess.data
+        selectedUserData: nextProps.getUserByIdSuccess,
+        payload:nextProps.getUserByIdSuccess
       },()=>{
         if(this.state.isAddOrEditUser){
           $('#myModal').css({ display: "block" })
@@ -177,7 +177,7 @@ export class ManageUsers extends React.Component {
 
   getRolesListener(nextProps) {
     if (nextProps.getRolesSuccess && this.props.getRolesSuccess !== nextProps.getRolesSuccess) {
-      this.setState({rolesData: nextProps.getRolesSuccess.data})
+      this.setState({rolesData: nextProps.getRolesSuccess})
     }
     else if(nextProps.getRolesFailure && this.props.getRolesFailure !== nextProps.getRolesFailure){
       this.manageNotificationModal(true,nextProps.getRolesFailure.error,"danger")
@@ -186,7 +186,7 @@ export class ManageUsers extends React.Component {
 
   getUsersListener(nextProps) {
     if (nextProps.getUsersSuccess && this.props.getUsersSuccess !== nextProps.getUsersSuccess) {
-      this.setState({usersData: nextProps.getUsersSuccess.data,isFetching:false})
+      this.setState({usersData: nextProps.getUsersSuccess,isFetching:false})
     }
     else if(nextProps.getUsersFailure &&  this.props.getUsersFailure !== nextProps.getUsersFailure){
       this.manageNotificationModal(true,nextProps.getUsersFailure.error, "danger")
