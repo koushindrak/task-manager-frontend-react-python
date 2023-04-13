@@ -61,6 +61,7 @@ export default class HomePage extends React.PureComponent {
       { "path": "/projects/tasks/:id?", "component": ManageTasks },
       { "path": "/labels/tasks/:id?", "component": LabelTask },
       { "path": "/teams/users/:id?", "component": ManageUsers },
+      { "path": "/teams/tasks/:id?", "component": ManageTasks },
       { "path": "/projects", "component": ManageProjects },
       { "path": "/labels", "component": ManageLabels },
       { "path": "/teams", "component": Teams },
