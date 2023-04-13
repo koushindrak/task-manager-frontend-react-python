@@ -15,7 +15,8 @@ import messages from './messages';
 import { Switch, Route, Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 
-let allContainers = ["ManageUsers", "ManageTasks", "ManageLabels", "ManageProjects", "AddOrEditParkingArea", "Dashboard","CollapsibleTable"]
+let allContainers = ["ManageUsers", "ManageTasks", "ManageLabels", "ManageProjects", "AddOrEditParkingArea",
+  "Dashboard","CollapsibleTable","LabelTask"]
 
 allContainers.map(container => {
   window[container] = require(`../${container}/Loadable`).default;
@@ -58,6 +59,7 @@ export default class HomePage extends React.PureComponent {
       { "path": "/", "component": ManageTasks },
       { "path": "/tasks", "component": ManageTasks },
       { "path": "/projects/tasks/:id?", "component": ManageTasks },
+      { "path": "/labels/tasks/:id?", "component": LabelTask },
       { "path": "/projects", "component": ManageProjects },
       { "path": "/labels", "component": ManageLabels },
       {"path":"/CollapsibleTable","component":CollapsibleTable}

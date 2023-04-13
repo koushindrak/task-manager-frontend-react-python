@@ -20,8 +20,10 @@ export function* ErrorCheck(action, error, errorConst) {
     yield put({type: errorConst, error: error.message, addOns: action});
   } else if (error.response.status === 400) {
     yield put({type: errorConst, error: formatErrors(error.response.data), addOns: action});
-  }else if( error.response.status === 403 || error.response.status === 500){
+  }else if( error.response.status === 403){
     yield put({type: errorConst, error: error.response.data.detail, addOns: action});
+  }else if (error.response.status === 500) {
+    yield put({type: errorConst, error: error.response.data.error, addOns: action});
   }
   else if (error.response.status === 401) {
     localStorage.clear();
