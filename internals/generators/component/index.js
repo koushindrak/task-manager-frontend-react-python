@@ -51,7 +51,7 @@ module.exports = {
     },
   ],
   actions: data => {
-    // Generate material-ui-data-grid-table.js and index.test.js
+    // Generate index.js and index.test.js
     let componentTemplate;
 
     switch (data.type) {
@@ -67,7 +67,7 @@ module.exports = {
     const actions = [
       {
         type: 'add',
-        path: '../../app/components/{{properCase name}}/material-ui-data-grid-table.js',
+        path: '../../app/components/{{properCase name}}/index.js',
         templateFile: componentTemplate,
         abortOnFail: true,
       },

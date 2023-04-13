@@ -157,7 +157,7 @@ Imagine a navigation bar, this is what its folder might look like:
 
 ```
 NavBar          # Wrapping folder
-├── material-ui-data-grid-table.js      # Actual component
+├── index.js      # Actual component
 ├── actions.js    # Actions
 ├── constants.js  # Constants
 ├── reducer.js    # Reducer

@@ -36,7 +36,7 @@ const reportErrorsFor = title => err => {
 const removeTestsDirFrom = relativePath => () =>
   rimraf.sync(path.join(__dirname, '/../../app/', relativePath, '/tests'));
 
-const plop = nodePlop('./material-ui-data-grid-table.js');
+const plop = nodePlop('./index.js');
 
 const componentGen = plop.getGenerator('component');
 componentGen

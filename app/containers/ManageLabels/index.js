@@ -25,48 +25,24 @@ import ReactTable from "react-table";
 import ReactTooltip from "react-tooltip";
 import 'react-table/react-table.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faAd, faPen, faPlus, faPlusCircle, faTasks, faTrash} from "@fortawesome/free-solid-svg-icons";
 import NotificationModal from '../../components/NotificationModal/Loadable'
 import * as commonUtils from '../../common-files/commonUtils'
-import {DataGrid, GridColDef, GridToolbar, GridValueGetterParams} from '@mui/x-data-grid';
-// import {columns1} from "./column_constants";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import centeredHeader from '../../assets/css/MyDataGrid.css'
 
-const tableStyles = {
-  root: {
-    '& .MuiDataGrid-cell--header': {
-      justifyContent: 'right',
-    },
-  },
+const addButtonStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  marginTop: 10,
+  justifyContent: 'center',
+  backgroundColor: '#051628',
+  color: '#fff',
+  borderRadius: '10%',
+  width: '24px',
+  height: '16px',
+  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+  cursor: 'pointer',
 };
 
-
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'light', // Set the palette mode to dark
-    background: {
-      default: '#303030', // Set the background color
-      paper: '#efe0e0', // Set the background color for the paper component
-    },
-  },
-  overrides: {
-    // Override the styles for the DataGrid component
-    MuiDataGrid: {
-      root: {
-        '& .MuiDataGrid-cell': {
-          color: 'white', // Set the font color to white
-        },
-        '& .MuiDataGrid-row': {
-          '&:hover': {
-            backgroundColor: '#ffffff', // Set the hover background color
-          },
-        },
-      },
-    },
-  },
-});
 const defaultButton = props => (
   <button type="button" {...props} >
     {props.children}
@@ -93,95 +69,64 @@ export class ManageLabels extends React.Component {
     this.props.getLabels();
   }
 
-  columns1: GridColDef[] = [
+  columns = [
     {
-      field: 'id',
-      headerName: 'id',
-      width: 200,
-      align:"center",
-      headerAlign: "center",
-    },
-    {
-      field: 'name',
-      headerName: 'Name',
-      width: 200,
-      align:"center",
-      headerAlign: "center",
-    },
-    {
-      field: 'description',
-      headerName: 'Description',
-      width: 300 ,
-      align:"center",
-      headerAlign: "center",
-    },
-    {
-      field: 'startDate',
-      headerName: 'Start Date',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: true,
+      Header: 'Name',
+      accessor:'name',
       filterable: true,
-      align:"center",
-      headerAlign: "center",
-      width: 200,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${new Date(params.row.start_date).toLocaleString('en-US')}`
+      style: { textAlign: "center" }
     },
     {
-      field: 'endDate',
-      headerName: 'End Date',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: true,
+      Header: 'Description',
+      accessor: 'description',
       filterable: true,
-      width: 200,
-      align:"center",
-      headerAlign: "center",
-      valueGetter: (params: GridValueGetterParams) =>
-        `${new Date(params.row.end_date).toLocaleString('en-US')}`
+      style: { textAlign: "center" }
     },
     {
-      field: 'actions',
-      headerName: 'Actions',
-      align:"center",
-      headerAlign: "center",
-      renderCell: (params) => {
-        const row = params.row;
+      Header: 'Creation Time',
+      Cell: row => (<span>{new Date(row.original.created_at).toLocaleString('en-US')}</span>),
+      accessor: 'created_at',
+      filterable: true,
+      style: { textAlign: "center" },
+    },
+    {
+      Header: 'Actions',
+      Cell: row => {
         return (
           <div>
-            <button
-              data-tip
-              data-for={"edit" + row.id}
-              onClick={()=>{
-                console.log("row----",row)
-                this.setState({ selectedLabelId: row.id, addOrEditIsFetching: true, isEditLabel:true });
-                this.props.getLabelsById(row.id)
-              }}
-            >
+
+            <button data-tip data-for={"edit" + row.original.id} onClick={()=>{
+              this.setState({ selectedLabelId: row.original.id, addOrEditIsFetching: true, isEditLabel:true });
+              this.props.getLabelsById(row.original.id)
+            }}>
               <FontAwesomeIcon icon={faPen} />
             </button>
-            <ReactTooltip id={"edit" + row.id} place="bottom" type="dark">
-              <div className="tooltipText">
-                <p>Edit</p>
-              </div>
+            <ReactTooltip id={"edit" + row.original.id} place="bottom" type="dark">
+              <div className="tooltipText"><p>Edit Label</p></div>
             </ReactTooltip>
 
-            <button
-              data-tip
-              data-for={"delete" + row.id}
-              onClick={() => {
-                // Handle delete action
-              }}
-            >
+            <button data-tip data-for={"delete" + row.original.id} onClick={() => {
+              this.setState({ selectedLabelId: row.original.id });
+              this.props.deleteLabel(row.original.id)
+            }}>
               <FontAwesomeIcon icon={faTrash} />
             </button>
-            <ReactTooltip id={"delete" + row.id} place="bottom" type="dark">
-              <div className="tooltipText">
-                <p>Delete</p>
-              </div>
+            <ReactTooltip id={"delete" + row.original.id} place="bottom" type="dark">
+              <div className="tooltipText"><p>Delete Label</p></div>
+            </ReactTooltip>
+
+            <button data-tip data-for={"addTask" + row.original.id} onClick={() => {
+              this.setState({ selectedLabelId: row.original.id });
+              this.props.history.push('labels/tasks/'+row.original.id);
+            }}>
+              <FontAwesomeIcon icon={faTasks}  />
+            </button>
+            <ReactTooltip id={"addTask" + row.original.id} place="bottom" type="dark">
+              <div className="tooltipText"><p>Add Task</p></div>
             </ReactTooltip>
           </div>
-        );
-      },
+        )
+      }
     }
   ];
 
@@ -197,7 +142,7 @@ export class ManageLabels extends React.Component {
   createLabelListener(nextProps) {
     if(commonUtils.compare(nextProps.createLabelSuccess,this.props.createLabelSuccess)){
       this.props.getLabels()
-      this.manageNotificationModal(true, nextProps.createLabelSuccess.displayMessage, "success")
+      // this.manageNotificationModal(true, nextProps.createLabelSuccess.displayMessage, "success")
       $('#myModal').css({display: "none"})
 
     }
@@ -208,6 +153,8 @@ export class ManageLabels extends React.Component {
   }
 
   getLabelsListener(nextProps) {
+    console.log("getLabelsListener-nextProps.getLabelsSuccess--",nextProps.getLabelsSuccess)
+
     if(commonUtils.compare(nextProps.getLabelsSuccess,this.props.getLabelsSuccess)){
       this.setState({labels: nextProps.getLabelsSuccess})
     }
@@ -218,10 +165,10 @@ export class ManageLabels extends React.Component {
 
 
   getLabelsByIdListener(nextProps){
-    console.log("getLabelsByIdListener-nextProps--",nextProps)
     if(commonUtils.compare(nextProps.getLabelsByIdSuccess,this.props.getLabelsByIdSuccess)){
       this.setState({selectedLabelData: nextProps.getLabelsByIdSuccess},()=>{
         if(this.state.isEditLabel){
+
           this.setState({payload:nextProps.getLabelsByIdSuccess},()=>{
             $('#myModal').css({ display: "block" })
           })
@@ -268,7 +215,7 @@ export class ManageLabels extends React.Component {
   addOrEditSubmitHandler = event => {
     event.preventDefault();
     let payload = this.state.payload;
-    payload.start_date = Date.parse(payload.start_date)
+    payload.created_at = Date.parse(payload.created_at)
     payload.end_date = Date.parse(payload.end_date)
     if(this.state.isEditLabel){
       payload.id=this.state.selectedLabelId;
@@ -289,18 +236,14 @@ export class ManageLabels extends React.Component {
     this.setState({ payload })
   }
 
-  convertStartDateToDateTimeLocal = event => {
-    const milliseconds =this.state.payload.start_date; // Example milliseconds value
+  convertcreatedAtToDateTimeLocal = event => {
+    const milliseconds =this.state.payload.created_at; // Example milliseconds value
     if (milliseconds !== undefined) { // Add this check
       return this.getDateTimeLocal(milliseconds);
     }
     return '';
   }
 
-  convertEndDateToDateTimeLocal = event => {
-    const milliseconds =this.state.payload.end_date; // Example milliseconds value
-    return this.getDateTimeLocal(milliseconds);
-  }
 
   getDateTimeLocal(milliseconds) {
     const date = new Date(milliseconds);
@@ -331,22 +274,17 @@ export class ManageLabels extends React.Component {
             </div>
 
           </div>
-          <ThemeProvider theme={darkTheme}>
-
-          <div style={{ height: '88vh', width: '100%', paddingTop: '60px' }}>
-
-            <DataGrid
-              rows={this.state.labels}
-              columns={this.columns1}
-              pageSize={10}
-              rowsPerPageOptions={[5]}
-              // checkboxSelection
-              components={{
-                Toolbar: GridToolbar, // Use the GridToolbar component for the toolbar
-              }}
+          <div className="contentContainer">
+            <ReactTable
+              data={this.state.labels}
+              columns={this.columns}
+              defaultPageSize={10}
+              noDataText={"No Data Found"}
+              className="customReactTable"
+              PreviousComponent={defaultButton}
+              NextComponent={defaultButton}
             />
           </div>
-          </ThemeProvider>
 
           <div id="myModal" className="customModal">
             <form onSubmit={this.addOrEditSubmitHandler}>
@@ -363,60 +301,21 @@ export class ManageLabels extends React.Component {
                     <input type="text" id="name" autoComplete="off" value={this.state.payload.name} className="form-control" placeholder="Label Name"
                            required onChange={this.onChangeHandler}/>
                   </div>
-
                   <div className="form-group">
-                    <label form="description"> Label Description : </label>
+                    <label htmlFor="description">Label Description :</label>
                     <input type="text" id="description" autoComplete="off" value={this.state.payload.description} className="form-control" placeholder="Label Description"
                            required onChange={this.onChangeHandler}/>
-                    {/*<select name="description" id="description" value={this.state.payload.description} required onChange={this.onChangeHandler}>*/}
-                    {/*  <option key="CAR" value="CAR">Car</option>)*/}
-                    {/*  <option key="BIKE" value="BIKE">Bike</option>)*/}
-                    {/*  <option key="BICYCLE" value="BICYCLE">Bicycle</option>)*/}
-                    {/*</select>*/}
                   </div>
-
-                  <div className="form-group">
-                    <label htmlFor="startDate">Label Start Date :</label>
-                    <input type="datetime-local" id="startDate" autoComplete="off"
-                           value={this.convertStartDateToDateTimeLocal(this.state.payload.start_date)}
-                           className="form-control" placeholder="Label Start Date"
-                           required onChange={this.onChangeHandler}/>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="endDate">Label End Date :</label>
-                    <input type="datetime-local" id="endDate" autoComplete="off"
-                           value={this.convertEndDateToDateTimeLocal(this.state.payload.end_date)}
-                           className="form-control" placeholder="Label End Date"
-                           required onChange={this.onChangeHandler}/>
-                  </div>
-                  <div className="form-group">
-                    <label form="status"> Label Status : </label>
-                    <select name="status" id="status" value={this.state.payload.status} required onChange={this.onChangeHandler}>
-                      <option key="ACTIVE" value="ACTIVE">ACTIVE</option>)
-                      <option key="INACTIVE" value="INACTIVE">INACTIVE</option>)
-                    </select>
-                  </div>
-                  {/*<div className="form-group">*/}
-                  {/*  <label> Parking Areas : </label>*/}
-                  {/*  <select className="form-control" value={this.state.payload.parkingAreaId} name="parkingAreaId" id="parkingAreaId" required onChange={this.onChangeHandler}>*/}
-                  {/*    <option value=""> select</option>*/}
-                  {/*    {this.state.parkingAreas.map((type, index) => {*/}
-                  {/*      return (<option key={index} value={type.id}>{type.id}</option>)*/}
-                  {/*    })*/}
-                  {/*    }*/}
-                  {/*  </select>*/}
-                  {/*</div>*/}
                 </div>
               </div>
             </form>
           </div>
           {this.state.openNotificationModal &&
-          <NotificationModal
-            type={this.state.type}
-            message={this.state.message}
-            onCloseHandler={this.onCloseHandler}
-          />
+            <NotificationModal
+              type={this.state.type}
+              message={this.state.message}
+              onCloseHandler={this.onCloseHandler}
+            />
           }
         </React.Fragment>
 
