@@ -21,7 +21,24 @@ let allContainers = ["ManageUsers", "ManageTasks", "ManageLabels", "ManageProjec
 allContainers.map(container => {
   window[container] = require(`../${container}/Loadable`).default;
 })
-
+const logoStyle = {
+  display: 'flex',
+  marginBottom: '60px',
+  marginTop: '30px',
+  // marginLeft: '50px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  // backgroundColor: '#76acf5',
+  color: '#ec1a1a',
+  borderRadius: '10%',
+  width: '100%',
+  height: '100px',
+  fontSize: '24px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  // boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+};
 
 class ErrorBoundary extends React.Component {
   state = {
@@ -110,10 +127,14 @@ export default class HomePage extends React.PureComponent {
         /* SIDE NAVE */
         <div className="sideNav" id="sideNav">
           <div className="menuNavigationSlideWrapper" id="menuNavigationSlideWrapper">
-            <div className="vpsLogo">
-              {/*<div className="loginHeader"><img src={require("../../assets/images/logo.jpg")} /></div>*/}
+            {/*<div className="vpsLogo">*/}
+            {/*  /!*<div className="loginHeader"><img src={require("../../assets/images/logo.jpg")} /></div>*!/*/}
 
-              <img src={require("../../images/to-do-list.png")} />
+            {/*  <img src={require("../../images/to-do-list.png")} />*/}
+            {/*</div>*/}
+            <div className="vpsLogo" style={logoStyle}>
+              {/*<img src={require("../../images/to-do-list.png")} />*/}
+              TO-DO List
             </div>
             <div className="menuList">
               <ul id="sideNav" >
