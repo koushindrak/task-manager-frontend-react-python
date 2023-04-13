@@ -91,7 +91,7 @@ export class ManageUsers extends React.Component {
         return (
           <div>
             <button
-              disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser).id}
+              // disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser) != null ? this.state.usersData.find(user => user.is_superuser).id : -1 }
               data-tip data-for={"edit" + row.original.id} onClick={()=>{
               this.setState({ selectedUserId: row.original.id, addOrEditIsFetching: true, isAddOrEditUser: true, isEditUser:true });
               this.props.getAllRoles()
@@ -104,7 +104,7 @@ export class ManageUsers extends React.Component {
             </ReactTooltip>
 
             <button
-              disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser).id}
+              // disabled={jwt_decode(localStorage["token"]).user_id !== this.state.usersData.find(user => user.is_superuser).id}
               data-tip data-for={"delete" + row.original.id} onClick={() => {
               this.setState({ selectedUserId: row.original.id });
               this.props.deleteUserById(row.original.id)
